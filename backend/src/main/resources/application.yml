@@ -1,32 +1,35 @@
+server:
+  port: ${SERVER_PORT:8080}
 spring:
   application:
-    name: healthdekho-backend
+    name: healthdekho-ims
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/healthdekho}
-    username: ${DB_USERNAME:healthdekho}
-    password: ${DB_PASSWORD:healthdekho}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: validate
     open-in-view: false
-    properties:
-      hibernate:
-        jdbc:
-          time_zone: UTC
   flyway:
     enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
   ai:
     openai:
-      api-key: ${OPENAI_API_KEY:not-configured}
+      api-key: ${OPENAI_API_KEY:sk-disabled-local-fallback}
       chat:
         options:
           model: ${OPENAI_MODEL:gpt-4o-mini}
 healthdekho:
   jwt:
-    secret: ${JWT_SECRET:change-this-development-secret-to-at-least-32-bytes}
-    expiration-seconds: ${JWT_EXPIRATION_SECONDS:3600}
+    secret: ${JWT_SECRET:HealthDekhoEnterpriseCapstoneSecretKey2026ForHS256SigningMin32Bytes!}
+    expiration-seconds: ${JWT_EXPIRATION_SECONDS:86400}
   ai:
     enabled: ${AI_ENABLED:false}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://localhost:3000}
 management:
   endpoints:
     web:
