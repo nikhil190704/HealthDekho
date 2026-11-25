@@ -1,0 +1,94 @@
+project: HealthDekho Insurance Management System
+updated: '2026-11-25'
+phase: implementation-readiness
+implementation_code_authorized: false
+architecture_approval_required: true
+scope:
+  included: [FR-1, FR-2, FR-3, FR-4, FR-5]
+  excluded: [FE-1, claim-management]
+  mandatory_stack:
+    - Java 21
+    - Spring Boot 3.5.7
+    - Spring Web
+    - Spring Security
+    - Spring Data JPA
+    - PostgreSQL
+    - Spring AI
+    - Bean Validation
+    - React.js
+    - Axios
+artifacts:
+  assessment_requirements: docs/assessment-requirements.md
+  product_brief: _bmad-output/product-brief.md
+  prd: _bmad-output/prd.md
+  ux: _bmad-output/ux-design-specification.md
+  architecture: _bmad-output/architecture.md
+  architecture_companion: docs/architecture.md
+  stories: _bmad-output/epics-and-stories.md
+readiness:
+  assessment_decisions: pass
+  functional_scope: pass
+  ux_contract: pass
+  architecture_contract: pending-human-approval
+  stories_and_acceptance: pass
+  implementation: blocked
+blocking_items:
+  - id: BLOCK-01
+    description: Human approval of UX and architecture is required before application code generation.
+    owner: assessment-owner
+stories:
+  - id: US-01
+    title: Register, authenticate, and isolate customer access
+    epic: 1
+    acceptance_prefix: AUTH
+    status: ready
+    dependencies: []
+  - id: US-02
+    title: View an owned dashboard
+    epic: 2
+    acceptance_prefix: DASH
+    status: ready-after-US-01
+    dependencies: [US-01, US-04]
+  - id: US-03
+    title: Discover eligible products and receive bounded AI guidance
+    epic: 3
+    acceptance_prefixes: [DISC, AI]
+    status: ready-after-US-01
+    dependencies: [US-01]
+  - id: US-04
+    title: Register an eligible policy and generate its schedule
+    epic: 4
+    acceptance_prefix: REG
+    status: ready-after-US-01
+    dependencies: [US-01]
+  - id: US-05
+    title: Pay a premium fully or partially and preserve the ledger
+    epic: 5
+    acceptance_prefix: PAY
+    status: ready-after-US-04
+    dependencies: [US-01, US-04]
+  - id: US-06
+    title: Search and inspect owned policies
+    epic: 6
+    acceptance_prefix: SEA
+    status: ready-after-US-04
+    dependencies: [US-01, US-04]
+  - id: US-07
+    title: Verify deployability, operations, and scope fidelity
+    epic: 7
+    acceptance_prefix: OPS
+    status: ready-after-all
+    dependencies: [US-01, US-02, US-03, US-04, US-05, US-06]
+implementation_readiness_checklist:
+  planning_approved: true
+  ux_complete: true
+  architecture_complete: true
+  architecture_approved: false
+  stories_complete: true
+  seven_tables_complete: true
+  jwt_authentication_decided: true
+  policy_states_decided: true
+  payment_rules_decided: true
+  product_ai_scope_decided: true
+  fe1_excluded: true
+  application_code_allowed: false
